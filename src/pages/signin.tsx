@@ -20,8 +20,8 @@ export default function Auth() {
   }
 
   let data = {
-    email: "root@root.com",
-    password: "123456",
+    email,
+    password,
   };
 
   async function submeter() {
