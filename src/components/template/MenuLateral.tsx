@@ -3,7 +3,9 @@ import MenuItem from "./MenuItem";
 
 export default function MenuLateral() {
   return (
-    <aside className={`flex flex-col`}>
+    <aside className={`flex flex-col
+    dark:bg-gray-900 dark:text-gray-200
+    `}>
       <div
         className={`
                 flex flex-col items-center justify-center
@@ -21,8 +23,9 @@ export default function MenuLateral() {
       <ul>
       <MenuItem texto="Sair" icone={IconeSair} onClick={() => console.log('Logout')} 
                className={`
-               text-red-600
+               text-red-600 dark:text-red-400
                hover:bg-red-400 hover:text-white
+               dark:hover:text-white
                `}
                />    
       </ul>
