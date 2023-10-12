@@ -1,17 +1,46 @@
 import Link from "next/link";
 
 interface MenuItemProps {
-  url: string;
-  texto: string;
-  icone: any;
+  texto: string
+  icone: any
+  url?: string
+  className?: string
+  onClick?: (evento: any) => void
 }
 export default function MenuItem(props: MenuItemProps) {
-  return (
-    <li className={`hover:bg-gray-100`}>
-      <Link href={props.url} className={`flex flex-col justify-center items-center h-20 w-20`}>
+  function renderizarLink() {
+    return (
+      <p
+        className={`
+                flex flex-col justify-center items-center
+                h-20 w-20 text-gray-600 
+                ${props.className}
+                `}
+      >
         {props.icone}
-        <span className={`text-xs font-light text-gray-600`}>{props.texto}</span>
-      </Link>
+        <span
+          className={`
+                    text-xs font-light 
+                    `}
+        >
+          {props.texto}
+        </span>
+      </p>
+    );
+  }
+  return (
+    <li
+      onClick={props.onClick}
+      className={`
+        hover:bg-gray-100
+        cursor-pointer
+        `}
+    >
+      {props.url ? (
+        <Link href={props.url}>{renderizarLink()}</Link>
+      ) : (
+        renderizarLink()
+      )}
     </li>
   );
 }
