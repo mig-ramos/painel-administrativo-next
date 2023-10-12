@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import AuthInput from "../components/auth/AuthInput";
 import Image from "next/image";
 import figura from "public/background.png";
 import imgLoading from "public/loading.gif";
 import { toast, ToastContainer } from "react-toastify";
+import { AuthContext } from "../data/contexts/AuthContext";
 
 export default function Auth() {
   const [modo, setModo] = useState<"login" | "cadastro">("login");
@@ -11,10 +12,17 @@ export default function Auth() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const { signIn } = useContext(AuthContext);
+
   function clearForm() {
     setEmail("");
     setPassword("");
   }
+
+  let data = {
+    email: "root@root.com",
+    password: "123456",
+  };
 
   async function submeter() {
     if (modo === "login") {
@@ -23,8 +31,8 @@ export default function Auth() {
         return;
       }
       setLoading(true);
-      console.log("login");
-      clearForm();
+      await signIn(data);
+      // clearForm();
       setLoading(false);
     } else {
       console.log("cadastrar");
@@ -41,7 +49,7 @@ export default function Auth() {
           style={{
             width: "auto",
             height: "100vh",
-            objectFit: 'cover'
+            objectFit: "cover",
           }}
         />
       </div>
@@ -83,7 +91,13 @@ export default function Auth() {
       text-white rounded-lg px-4 py-3 mt-6
       `}
         >
-          <Image src={imgLoading} alt="Loading" hidden={!loading} width={24} className="mr-2" />
+          <Image
+            src={imgLoading}
+            alt="Loading"
+            hidden={!loading}
+            width={24}
+            className="mr-2"
+          />
           {modo === "login" ? "Entrar" : "Cadastrar"}
         </button>
       </div>
