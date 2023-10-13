@@ -19,11 +19,6 @@ export default function Auth() {
     setPassword("");
   }
 
-  let data = {
-    email,
-    password,
-  };
-
   async function submeter() {
     if (modo === "login") {
       if (email === "" || password === "") {
@@ -31,6 +26,12 @@ export default function Auth() {
         return;
       }
       setLoading(true);
+
+      let data = {
+        email,
+        password,
+      };
+
       await signIn(data);
       // clearForm();
       setLoading(false);
