@@ -10,7 +10,7 @@ export default function Notificacoes() {
   
   return (
     <Layout titulo="Notificações" subtitulo="Gerenciamento de pedidos">
-      <h1>{user.name}</h1>
+      <h1>{user?.name}</h1>
       <button onClick={alternarTema}>Alternar Tema</button>
     </Layout>
   );
