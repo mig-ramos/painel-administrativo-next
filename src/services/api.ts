@@ -6,10 +6,16 @@ import { signOut } from "../data/contexts/AuthContext";
 export function setupAPIClient(ctx = undefined) {
     let cookies = parseCookies(ctx);
 
+    // const api = axios.create({
+    //     baseURL: 'http://localhost:8080',
+    //     headers: {
+    //         Authorization: `Bearer ${cookies['@nextauth.token']}`
+    //     }
+    // })
     const api = axios.create({
-        baseURL: 'http://localhost:8080',
+        baseURL: 'http://localhost:3333',
         headers: {
-            Authorization: `Bearer ${cookies['@nextauth.token']}`
+            Authorization: `Bearer ${cookies['@holistic.token']}`
         }
     })
 
@@ -20,7 +26,7 @@ export function setupAPIClient(ctx = undefined) {
             // qualquer erro 401 (não autorizado) devemos deslogar o usuario
             if (typeof window !== undefined) {
                 // chamar a função para deslogar
-                signOut();
+               signOut();
             } else {
                 return Promise.reject(new AuthTokenError());
             }

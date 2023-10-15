@@ -3,8 +3,10 @@ import AuthInput from "../components/auth/AuthInput";
 import Image from "next/image";
 import figura from "public/background.png";
 import imgLoading from "public/loading.gif";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { AuthContext } from "../data/contexts/AuthContext";
+import { canSSRGuest } from '../utils/canSSRGuest';
+import  router  from "next/router";
 
 export default function Auth() {
   const [modo, setModo] = useState<"login" | "cadastro">("login");
@@ -12,7 +14,11 @@ export default function Auth() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { signIn } = useContext(AuthContext);
+  const { signIn, isAuthenticated } = useContext(AuthContext);
+
+ function redirectPage(){
+   router.push('/')
+  }
 
   function clearForm() {
     setEmail("");
@@ -41,7 +47,7 @@ export default function Auth() {
   }
 
   return (
-    <div className="flex h-screen justify-center items-center">
+      <div className="flex h-screen justify-center items-center">
       <div className={`hidden md:block md:w-1/2 lg:w-2/3`}>
         <Image
           src={figura}
@@ -103,5 +109,11 @@ export default function Auth() {
         </button>
       </div>
     </div>
-  );
+  )
 }
+
+export const getServerSideProps = canSSRGuest(async (ctx) => {
+  return {
+    props: {}
+  }
+})
